@@ -1,8 +1,0 @@
-<file lMod="Da/Te/2014" version="6">
-	<template name="Foo" comment="Bar">
-<!-- 	These sizes are in inches.
-		They will be converted to points when written to the APA.
--->	
-		<offset x="3" y="5" /> <!-- These will be converted to a negative number -->
-		<size x="12" y="14" />
-	<

@@ -24,30 +24,29 @@ class template:
 		self.offsetY=float(offset['y'])
 		self.sizeW=float(size['width'])
 		self.sizeH=float(size['height'])
-		self.comment=""
+		self.comment=''
 class apa:
-	def lModUpdate():
-		import time
-		apa.lMod=time.strftime('%m/%d/%Y')
-	def duplicate():
-		shutil.copy('templates.xml','old/templates.r%s.xml'%apa.revision) #should also copy the APA
-		shutil.copy('job.apa','old/job.r%s.apa'%apa.revision) #might need to enable the symbolic link argument when reusing this to move the APA into the MCDTemplate folder
-		apa.revision+=1
-	def updateFields(*args):
-		cName=nameList[templateBox.curselection()[0]]
-		cTemp=apa.templates[cName]
-		templateNameBox.delete('1.0','2.0')
-		templateNameBox.insert('1.0', cName)
-		offsetXBox.delete('1.0','2.0')
-		offsetXBox.insert('1.0', cTemp.offsetX)
-		offsetYBox.delete('1.0','2.0')
-		offsetYBox.insert('1.0', cTemp.offsetY)
-		sizeWBox.delete('1.0','2.0')
-		sizeWBox.insert('1.0', cTemp.sizeW)
-		sizeHBox.delete('1.0','2.0')
-		sizeHBox.insert('1.0', cTemp.sizeH)
-		commentBox.delete('1.0','2.0')
-		commentBox.insert('1.0', cTemp.comment)
+	pass
+
+def duplicate():
+	shutil.copy('templates.xml','old/templates.r%s.xml'%apa.revision)
+	shutil.copy('job.apa','old/job.r%s.apa'%apa.revision) #might need to enable the symbolic link argument when reusing this to move the APA into the MCDTemplate folder
+	apa.revision+=1
+def updateFields(*args): # not part of the APA class because of issues involving python 2.7
+	cName=nameList[int(templateBox.curselection()[0])]
+	cTemp=apa.templates[cName]
+	templateNameBox.delete('1.0','2.0')
+	templateNameBox.insert('1.0', cName)
+	offsetXBox.delete('1.0','2.0')
+	offsetXBox.insert('1.0', cTemp.offsetX)
+	offsetYBox.delete('1.0','2.0')
+	offsetYBox.insert('1.0', cTemp.offsetY)
+	sizeWBox.delete('1.0','2.0')
+	sizeWBox.insert('1.0', cTemp.sizeW)
+	sizeHBox.delete('1.0','2.0')
+	sizeHBox.insert('1.0', cTemp.sizeH)
+	commentBox.delete('1.0','2.0')
+	commentBox.insert('1.0', cTemp.comment)
 		
 
 # DATA READ-IN
@@ -82,7 +81,7 @@ lModLbl=Label(mainFrame, text='Last Modified: %s'%apa.lMod)
 lModLbl.grid(column=1, row=0, sticky=(N,E,S))
 
 # set and grid buttons
-dupeBtn=Button(mainFrame, text='Duplicate APA', command=apa.duplicate)
+dupeBtn=Button(mainFrame, text='Duplicate APA', command=duplicate)
 dupeBtn.grid(column=3, row=0, sticky=(E,W))
 
 newBtn=Button(mainFrame, text='New Entry', command=None)
@@ -154,6 +153,6 @@ sizeHLbl.grid(column=8, row=3)
 
 # select item and populate fields
 # nameofframe.insert('1.0', 'text')
-templateBox.bind('<<ListboxSelect>>', apa.updateFields)
+templateBox.bind('<<ListboxSelect>>', updateFields)
 
 app.mainloop()

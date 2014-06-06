@@ -1,14 +1,20 @@
 # Python 3.x/2.7
 # APAssist  -- apa.py
-# v 0.7
+# v 0.7.5
 
 # A tool written to aid in the generation of APA files for the
 # Kodak Prinergy system, written to work for both Python 2.7 and 3x
-
 	# rather than storing each to a dictionary of classObjects, couldn't
 	# I just process the xml incrementally, pulling only the namelist
 	# and version/date on load, then pull the data out live for each
 	# template? might get better performance on load for a large XML
+	
+# comment syntax:
+	# SECTION DECLARATION
+	# subsection declaration or process description
+	#-subsubsection
+	#!!a note, question, or something to insert later
+	#.a disabled line of code
 
 import shutil, xml.etree.ElementTree as xml
 try:							# tkinter for 3.x
@@ -19,6 +25,8 @@ except ImportError:				# tkinter for 2.7
 	from Tkinter import *
 	from ttk import *
 	import tkMessageBox as messagebox
+
+# set template object
 class template:
 	def __init__(self,offset,size):
 		self.offsetX=float(offset['x'])
@@ -27,39 +35,46 @@ class template:
 		self.sizeH=float(size['height'])
 		self.comment=''
 		self.flag=None
+
+# set apa container
+#!!consider ditching the class and making it a global object
 class apa:
 	pass
 
+# GENERAL ACTIONS
+def clearFields():
+	templateNameBox.delete('1.0','end')
+	offsetXBox.delete('1.0','end')
+	offsetYBox.delete('1.0','end')
+	sizeWBox.delete('1.0','end')
+	sizeHBox.delete('1.0','end')
+	commentBox.delete('1.0','end')
 def dupeAPA():
 	shutil.copy('templates.xml','old/templates.r%s.xml'%apa.revision)
-	shutil.copy('job.apa','old/job.r%s.apa'%apa.revision) #might need to enable the symbolic link argument when reusing this to move the APA into the MCDTemplate folder
+	#!!might need to enable the symbolic link argument when reusing this to move the APA into the MCDTemplate folder
+	shutil.copy('job.apa','old/job.r%s.apa'%apa.revision)
 	apa.revision+=1
-
-# actions and buttonModes
-def updateFields(*args):
-	cName=nameList[int(templateBox.curselection()[0])]
-	cTemp=apa.templates[cName]
-	templateNameBox.delete('1.0','2.0')
-	templateNameBox.insert('1.0', cName)
-	offsetXBox.delete('1.0','2.0')
-	offsetXBox.insert('1.0', cTemp.offsetX)
-	offsetYBox.delete('1.0','2.0')
-	offsetYBox.insert('1.0', cTemp.offsetY)
-	sizeWBox.delete('1.0','2.0')
-	sizeWBox.insert('1.0', cTemp.sizeW)
-	sizeHBox.delete('1.0','2.0')
-	sizeHBox.insert('1.0', cTemp.sizeH)
-	commentBox.delete('1.0','2.0')
-	commentBox.insert('1.0', cTemp.comment)
-def templateBoxRefresh():
+def templateListBoxRefresh():
 	nameList.sort()
-	templateBox.delete(0,'end')
+	templateListBox.delete(0,'end')
 	for i in nameList:
 		if apa.templates[i].flag!='deleted':
-			templateBox.insert('end', i)
+			templateListBox.insert('end', i)
+def updateFields(*args):
+	cName=nameList[int(templateListBox.curselection()[0])]
+	cTemp=apa.templates[cName]
+	clearFields()
+	templateNameBox.insert('1.0', cName)
+	offsetXBox.insert('1.0', cTemp.offsetX)
+	offsetYBox.insert('1.0', cTemp.offsetY)
+	sizeWBox.insert('1.0', cTemp.sizeW)
+	sizeHBox.insert('1.0', cTemp.sizeH)
+	commentBox.insert('1.0', cTemp.comment)
+
+# SET INTERFACE STATES
 def editMode():
-	# set item states
-	templateBox['state']='disabled'
+	# set button states
+	templateListBox['state']='disabled'
 	newBtn['text']='Cancel Entry'
 	newBtn['command']=cancelEdit
 	delBtn['state']='disabled'
@@ -70,7 +85,7 @@ def editMode():
 	tstBtn['state']='disabled'
 def normalMode():
 	# set button states
-	templateBox['state']='normal'
+	templateListBox['state']='normal'
 	newBtn['text']='New Entry'
 	newBtn['command']=newEntry
 	delBtn['state']='normal'
@@ -80,185 +95,213 @@ def normalMode():
 	savBtn['state']='normal'
 	tstBtn['state']='normal'
 
-# button actions
-def newEntry():
-	# set interaction flag to new
-	interactionMode='new'
-	# clear and fill fields
-	templateNameBox.delete('1.0','2.0')
-	templateNameBox.insert('1.0', 'New')
-	offsetXBox.delete('1.0','2.0')
-	offsetXBox.insert('1.0', 0)
-	offsetYBox.delete('1.0','2.0')
-	offsetYBox.insert('1.0', 0)
-	sizeWBox.delete('1.0','2.0')
-	sizeWBox.insert('1.0', 0)
-	sizeHBox.delete('1.0','2.0')
-	sizeHBox.insert('1.0', 0)
-	commentBox.delete('1.0','2.0')
-	editMode()
-	# won't need to enable events for applying - the apply function should look at global flag and see what needs to be done in a given instance
+# BUTTON ACTIONS
+def apply():
+	interactionMode='normal'
+	#!!appy changes back to apa.templates
+	#!!need a check for the templateName -
+		#!!if changed:
+			#!!the template has to be duped in apa.templates with the new name
+			#!!the original name in apa.templates has to have its flag set to deleted
+			#!!the original name has to be removed from nameList
+			#!!the new name has to be appended to the name list
+			#!!set the flag of the new item to 'new'
+			#!!templateListBoxRefresh()
+		#!!else set the flag to edited
+	normalMode()
 def cancelEdit():
 	# set field values
-	# !!look for global flag, if editing then reset fields to original. If new, clear out
-	interactionMode='normal'
+	#!!look for global flag, if editing then reset fields to original. If new, clear out
 	normalMode()
-	# !!clear global flag
+	interactionMode='normal'
 def deleteEntry():
-	# !!qbox - are you sure?
 	# get name and index info
-	cIndex=int(templateBox.curselection()[0])
-	cName=nameList[cIndex]
+	#!!listbox active might be useful?
+	cIndex=int(templateListBox.curselection()[0])
+	cName=templateListBox.get('active')
 	if messagebox.askyesno(message='Are you sure you want to delete \'%s\' from the APA?'%(cName), icon='question', title='CAUTION!', default='no'):
-		# remove from name list and templatebox
-		templateBox.delete(cIndex)
+		# remove from name list and templateListBox
+		templateListBox.delete(cIndex)
 		nameList.remove(cName)
 		# set dict flag to delete
 		apa.templates[cName].flag='deleted'
-		# clear fields
-		templateNameBox.insert('end',' was deleted!')
-		offsetXBox.delete('1.0','2.0')
-		offsetYBox.delete('1.0','2.0')
-		sizeWBox.delete('1.0','2.0')
-		sizeHBox.delete('1.0','2.0')
-		commentBox.delete('1.0','2.0')
+		# set field state
+		clearFields()
+		templateNameBox.insert('1.0','%s was deleted!'%cName)
 def dupeEntry():
-	cIndex=int(templateBox.curselection()[0])+1
-	cName=nameList[cIndex-1]
+	#!!repeated clicks won't copy copies, have to click off and then reselect the copy
+	cIndex=int(templateListBox.curselection()[0])+1
+	cName=templateListBox.get('active')
 	apa.templates[cName+' COPY']=apa.templates[cName]
 	cName+=' COPY'
 	templateNameBox.insert('end', ' COPY')
 	nameList.insert(cIndex,cName)
-	templateBox.insert(cIndex,cName)
-	# !!For some reason, it isn't reselecting...
-	templateBox.see(cIndex)
-	templateBox.activate(cIndex)
-def edit():
+	templateListBox.insert(cIndex,cName)
+	templateListBox.selection_clear(cIndex-1)
+	templateListBox.selection_set(cIndex)
+	updateFields()
+	
+def edit(*args):
 	interactionMode='edit'
 	editMode()
-def apply():
-	interactionmode='normal'
-	# !!appy changes back to apa.templates
-	# !!need a check for the templateName -
-		# !!if changed:
-			# !!the template has to be duped in apa.templates with the new name
-			# !!the original name in apa.templates has to have its flag set to deleted
-			# !!the original name has to be removed from nameList
-			# !!the new name has to be appended to the name list
-			# !!set the flag of the new item to 'new'
-			# !!templateBoxRefresh()
-		# !!else set the flag to edited
-	normalMode()
+def newEntry():
+	# set interaction flag to new
+	interactionMode='new'
+	# set initial field state
+	clearFields()
+	templateNameBox.insert('1.0', 'New')
+	offsetXBox.insert('1.0', 0)
+	offsetYBox.insert('1.0', 0)
+	sizeWBox.insert('1.0', 0)
+	sizeHBox.insert('1.0', 0)
+	editMode()
+	#!!need to add a same-name conflict
+
 # DATA READ-IN
-library=xml.parse('templates.xml') #try if no file exists generate a new empty one. Also verify if there's an old folder. If not, make one.
-root=library.getroot() # Current file is called template.xml - The old ones are moved to the OLD folder and renamed to be template.r%CURRENT REVISION , then the live revision var is updated
+# parse the xmlfile
+#!!if templates.xml doesn't exist
+#!!	make one
+#!!else:
+library=xml.parse('templates.xml')
+root=library.getroot()
 
-# pull the lmod and revision number from the XML file
+# POPULATE
+# set the last modified date (lMod) and revision#
 apa.lMod=root.attrib['lMod']
-apa.revision=int(root.attrib['revision']) 
+apa.revision=int(root.attrib['revision'])
 
-# populate the dictionary of templates from the XML file
+# set dictionary of templates
 apa.templates={}
 for child in root:
 	tName=child.attrib['name']
 	apa.templates[tName]=template(child[0].attrib,child[1].attrib)
 	if 'comment' in child.attrib:
 		apa.templates[tName].comment=child.attrib['comment']
+# set list of template names
+nameList=list(apa.templates)
 
-# set interaction state to run
-# !!do i really need interactionMode?
+# set interactionMode to run
+#!!do i really need interactionMode?
+#!!this might have some scope issues, look into it!
 interactionMode='run'
 
-# INTERFACE CONSTRUCTION
+# INITIALISE INTERFACE
 # set the main application window
 app=Tk()
 app.title('APAssist')
-# !!Would a paned window be a better option?
+#!!would a paned window be a better option?
 mainFrame=Frame(app, padding=(7,7,7,7)).grid(column=0, row=0, sticky=(N,W,E,S))
-# app.grid_columnconfigure(0, weight=1)
-# app.grid_rowconfigure(1, weight=1)
+# set grid weights for stretchy magic
+#.app.grid_columnconfigure(0, weight=1)
+#.app.grid_rowconfigure(1, weight=1)
 
-# set and grid date/r# labels
+# set revision label
 revisionLbl=Label(mainFrame, text='Revision: %s'%apa.revision)
 revisionLbl.grid(column=0, row=0, sticky=(N,W,S))
 
+# set lMod label
 lModLbl=Label(mainFrame, text='Last Modified: %s'%apa.lMod)
 lModLbl.grid(column=1, row=0, sticky=(N,E,S))
 
-# set and grid buttons
+# set templateListBox
+templateListBox=Listbox(mainFrame, selectmode='single')
+templateListBox.grid(column=0, row=1, columnspan=2, rowspan=7, sticky=(N,E,W,S))
 
+# populate templateListBox
+templateListBoxRefresh()
+
+# set templateListBoxScroll
+templateListBoxScroll=Scrollbar(mainFrame, orient=VERTICAL, command=templateListBox.yview)
+templateListBoxScroll.grid(column=2, row=1, rowspan=7, sticky=(N,S))
+
+# configure the scrollbar
+templateListBox['yscrollcommand'] = templateListBoxScroll.set
+
+# buttons
+#-new entry
 newBtn=Button(mainFrame, text='New Entry', command=newEntry)
 newBtn.grid(column=3, row=1, sticky=(E,W))
 
+#-delete entry
 delBtn=Button(mainFrame, text='Delete Entry', command=deleteEntry)
 delBtn.grid(column=3, row=2, sticky=(E,W))
 
+#-duplicate entry
 dupBtn=Button(mainFrame, text='Duplicate Entry', command=dupeEntry)
 dupBtn.grid(column=3, row=3, sticky=(E,W))
 
+#-edit (or apply changes to) entry
 edtBtn=Button(mainFrame, text='Edit Entry', command=edit)
 edtBtn.grid(column=3, row=4, sticky=(E,W))
 
-savBtn=Button(mainFrame, text='Save', command=None, state='disabled') # should only be active if a change flag is on. 
-savBtn.grid(column=3, row=5, sticky=(E,W)) # bring up a 'save as copy or save over' dialogue
+#-save apa and xml
+#!!activate only after an edit. Don't need to worry about new items or duplicates, those are meant to be edited anyway
+savBtn=Button(mainFrame, text='Save', command=None, state='disabled')
+savBtn.grid(column=3, row=5, sticky=(E,W))
 
+#-test
 tstBtn=Button(mainFrame, text='Test', command=None)
 tstBtn.grid(column=3, row=6, sticky=(E,W))
 
+#-help
 hlpBtn=Button(mainFrame, text='Help', command=None)
 hlpBtn.grid(column=3, row=7, sticky=(E,W))
 
-# set templateBox list and its scrollbar
-templateBox=Listbox(mainFrame, selectmode='single')
-templateBox.grid(column=0, row=1, columnspan=2, rowspan=7, sticky=(N,E,W,S))
-
-templateBoxScroll=Scrollbar(mainFrame, orient=VERTICAL, command=templateBox.yview)
-templateBoxScroll.grid(column=2, row=1, rowspan=7, sticky=(N,S))
-templateBox['yscrollcommand'] = templateBoxScroll.set
-
-nameList=list(apa.templates)
-templateBoxRefresh()
-
 # info panel objects
-templateNameBox=Text(mainFrame, height=1, width=10)
-templateNameBox.grid(column=4, row=0, columnspan=5, sticky=(E,W))
+#-templateNameBox: template name field
 templateNameLbl=Label(mainFrame, text='Template Name:')
 templateNameLbl.grid(column=3, row=0, sticky=E)
+templateNameBox=Text(mainFrame, height=1, width=10)
+templateNameBox.grid(column=4, row=0, columnspan=5, sticky=(E,W))
 
-commentBox=Text(mainFrame, height=4, width=10)
-commentBox.grid(column=4, row=5, columnspan=5, rowspan=3, sticky=(W,E))
+#-commentBox: template comment field
 commentLbl=Label(mainFrame, text='Comments:')
 commentLbl.grid(column=4, row=4, sticky=W)
+commentBox=Text(mainFrame, height=4, width=10)
+commentBox.grid(column=4, row=5, columnspan=5, rowspan=3, sticky=(W,E))
 
-offsetBoxLbl=LabelFrame(mainFrame, text='Offset (in)')
-offsetBoxLbl.grid(column=4, row=1, columnspan=2, rowspan=3)
+#-offsetLblFrm: labelframe for template offsets
+offsetLblFrm=LabelFrame(mainFrame, text='Offset (in)')
+offsetLblFrm.grid(column=4, row=1, columnspan=2, rowspan=3)
 
-offsetXBox=Text(offsetBoxLbl, height=1, width=10)
-offsetXBox.grid(column=4, row=1, sticky=(E,W))
-offsetXLbl=Label(offsetBoxLbl, text='x')
+#-offsetXBox: template offset x-value field
+offsetXLbl=Label(offsetLblFrm, text='x')
 offsetXLbl.grid(column=5, row=1)
+offsetXBox=Text(offsetLblFrm, height=1, width=10)
+offsetXBox.grid(column=4, row=1, sticky=(E,W))
 
-offsetYBox=Text(offsetBoxLbl, height=1, width=10)
-offsetYBox.grid(column=4, row=2, sticky=(E,W))
-offsetYLbl=Label(offsetBoxLbl, text='y')
+#-offsetYBox: template offset y-value field
+offsetYLbl=Label(offsetLblFrm, text='y')
 offsetYLbl.grid(column=5, row=2)
+offsetYBox=Text(offsetLblFrm, height=1, width=10)
+offsetYBox.grid(column=4, row=2, sticky=(E,W))
 
-sizeBoxLbl=LabelFrame(mainFrame, text='Size (in)')
-sizeBoxLbl.grid(column=6, row=1, columnspan=2, rowspan=3)
+#-sizeLblFrm: labelframe for template size
+sizeLblFrm=LabelFrame(mainFrame, text='Size (in)')
+sizeLblFrm.grid(column=6, row=1, columnspan=2, rowspan=3)
 
-sizeWBox=Text(sizeBoxLbl, height=1, width=10)
-sizeWBox.grid(column=7, row=1, sticky=(E,W))
-sizeWLbl=Label(sizeBoxLbl, text='width')
+#-sizeWBox: template size width field
+sizeWLbl=Label(sizeLblFrm, text='width')
 sizeWLbl.grid(column=8, row=1)
+sizeWBox=Text(sizeLblFrm, height=1, width=10)
+sizeWBox.grid(column=7, row=1, sticky=(E,W))
 
-sizeHBox=Text(sizeBoxLbl, height=1, width=10)
-sizeHBox.grid(column=7, row=2, sticky=(E,W))
-sizeHLbl=Label(sizeBoxLbl, text='height')
+#-sizeHBox: template size height field
+sizeHLbl=Label(sizeLblFrm, text='height')
 sizeHLbl.grid(column=8, row=2)
+sizeHBox=Text(sizeLblFrm, height=1, width=10)
+sizeHBox.grid(column=7, row=2, sticky=(E,W))
 
 # EVENT BINDINGS
-	# select item and populate fields
-	# nameofframe.insert('1.0', 'text')
-templateBox.bind('<<ListboxSelect>>', updateFields) # select a template on click
+#!!set the command to a lambdaevent so i don't have to have *args?
+#!!does it really save that much?
+#!!as per https://www.inkling.com/read/programming-python-mark-lutz-4th/chapter-9/listboxes-and-scrollbars  
+#!!find listbox.bind('<Double-1>', (lambda event: onDoubleClick()))
+
+# select a template in templateListBox, update fields
+templateListBox.bind('<<ListboxSelect>>', updateFields)
+# double click a template in templateListBox, enter edit
+#!!not working - why?
+templateListBox.bind('<<Double-1>>', edit)
 
 app.mainloop()

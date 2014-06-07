@@ -49,17 +49,21 @@ def clearFields():
 	sizeWBox.delete('1.0','end')
 	sizeHBox.delete('1.0','end')
 	commentBox.delete('1.0','end')
-def dupeAPA():
+def dupeFile():
+	# copy and rename the xml to the old folder
 	shutil.copy('templates.xml','old/templates.r%s.xml'%apa.revision)
-	#!!might need to enable the symbolic link argument when reusing this to move the APA into the MCDTemplate folder
-	shutil.copy('job.apa','old/job.r%s.apa'%apa.revision)
+	# move and rename the apa to the old folder - move because the APA is rewritten from the ground up
+	shutil.move('Job.apa','old/Job.r%s.apa'%apa.revision)
 	apa.revision+=1
+	#!!set lmoddate
+	messagebox.showinfo(message='Files duplicated into the old folder.')
 def templateListBoxRefresh():
 	nameList.sort()
 	templateListBox.delete(0,'end')
 	for i in nameList:
 		if apa.templates[i].flag!='deleted':
 			templateListBox.insert('end', i)
+	templateListBox.selection_set(0)
 def updateFields(*args):
 	cName=nameList[int(templateListBox.curselection()[0])]
 	cTemp=apa.templates[cName]
@@ -96,27 +100,41 @@ def normalMode():
 	tstBtn['state']='normal'
 
 # BUTTON ACTIONS
-def apply():
-	interactionMode='normal'
-	#!!appy changes back to apa.templates
-	#!!need a check for the templateName -
+def apply(): #!!combine and put as much as you can outside the if statements
+	#!!THROW UP DUPE NAME ERROR
+	#!!get the name from the templateNameBox - make sure it's a single line - might need to turn off wrapping
+	cName=templateNameBox.get('1.0','1.end')
+	if apa.interactionMode=='new':
+		nameList.append(cName)
+		apa.templates[cName]=template({'x':offsetXBox.get('1.0','1.end'),'y':offsetYBox.get('1.0','1.end')},{'width':sizeWBox.get('1.0','1.end'),'height':sizeHBox.get('1.0','1.end')})
+		if commentBox.get('1.0','1.end')!='':
+			apa.templates[cName].comment=commentBox.get('1.0','1.end')
+	elif apa.interactionMode=='edit':
+		#!!assuming template name is NOT changed
+		apa.templates[cName]=template({'x':offsetXBox.get('1.0','1.end'),'y':offsetYBox.get('1.0','1.end')},{'width':sizeWBox.get('1.0','1.end'),'height':sizeHBox.get('1.0','1.end')})
+		if commentBox.get('1.0','1.end')!='':
+			apa.templates[cName].comment=commentBox.get('1.0','1.end')
 		#!!if changed:
 			#!!the template has to be duped in apa.templates with the new name
 			#!!the original name in apa.templates has to have its flag set to deleted
 			#!!the original name has to be removed from nameList
 			#!!the new name has to be appended to the name list
-			#!!set the flag of the new item to 'new'
 			#!!templateListBoxRefresh()
-		#!!else set the flag to edited
+			#!!need to change the interaction mode to either new or edited before exiting the elif edit
+	apa.templates[cName].flag=apa.interactionMode
+	apa.interactionMode='normal'
 	normalMode()
+	templateListBoxRefresh()
+	#!!select the new or edited template
+	updateFields()
 def cancelEdit():
 	# set field values
 	#!!look for global flag, if editing then reset fields to original. If new, clear out
 	normalMode()
-	interactionMode='normal'
+	apa.interactionMode='normal'
+	updateFields()
 def deleteEntry():
 	# get name and index info
-	#!!listbox active might be useful?
 	cIndex=int(templateListBox.curselection()[0])
 	cName=templateListBox.get('active')
 	if messagebox.askyesno(message='Are you sure you want to delete \'%s\' from the APA?'%(cName), icon='question', title='CAUTION!', default='no'):
@@ -140,13 +158,12 @@ def dupeEntry():
 	templateListBox.selection_clear(cIndex-1)
 	templateListBox.selection_set(cIndex)
 	updateFields()
-	
 def edit(*args):
-	interactionMode='edit'
+	apa.interactionMode='edit'
 	editMode()
 def newEntry():
 	# set interaction flag to new
-	interactionMode='new'
+	apa.interactionMode='new'
 	# set initial field state
 	clearFields()
 	templateNameBox.insert('1.0', 'New')
@@ -156,7 +173,68 @@ def newEntry():
 	sizeHBox.insert('1.0', 0)
 	editMode()
 	#!!need to add a same-name conflict
-
+def saveActn():
+	root.set('lMod',str(apa.lMod))
+	root.set('revision',str(apa.revision))
+	#!! for edit and delete, loop through the element tree and look at each element
+	#!! if a comment is deleted, this miiiight not actually write the purged comment.
+	for template in root.findall('template'):
+		cName=template.attrib['name']
+		cTemp=apa.templates[cName]
+		cName=template.attrib['name']
+		cOffX=str(cTemp.offsetX)
+		cOffY=str(cTemp.offsetY)
+		cSizW=str(cTemp.sizeW)
+		cSizH=str(cTemp.sizeH)
+		cComm=str(cTemp.comment)
+		# if flagged as edit
+		if cTemp.flag=='edit':
+			if cComm!='':
+				template.set('comment',cComm)
+			offset=template.find('offset')
+			size=template.find('size')
+			offset.set('x',cOffX)
+			offset.set('y',cOffY)
+			size.set('width',cSizW)
+			size.set('height',cSizH)		
+		# if flagged as deleted
+		elif cTemp.flag=='deleted':
+			#!!isn't removing
+			root.remove(template)
+	for cName in apa.templates:
+		cTemp=apa.templates[cName]
+		if cTemp.flag=='new':
+			#!!successfully applies a new item, but puts in the wrong info
+			cOffX=str(cTemp.offsetX)
+			cOffY=str(cTemp.offsetY)
+			cSizW=str(cTemp.sizeW)
+			cSizH=str(cTemp.sizeH)
+			cComm=str(cTemp.comment)
+			top=xml.Element('template')
+			template.set('name',cName)
+			if cComm!='':template.set('comment',cComm)
+			off=xml.SubElement(template,'offset')
+			off.set('x',cOffX)
+			off.set('y',cOffY)
+			#.siz=xml.SubElement(template,'size')
+			siz.set('width',cSizW)
+			siz.set('height',cSizH)
+			#.xml.dump(template)
+			cTemp.flag==None
+	library.write('templates.xml')
+	#!!progress bar is gooooooo
+	messagebox.showinfo(message='Files saved.')
+def saveBtn():
+	state=messagebox.askyesnocancel(message='Do you want to create a new version?', icon='question', title='CAUTION!')
+	if state: # dupe
+		dupeFile()
+		saveActn()
+	elif state==False: # don't dupe
+		if messagebox.askyesno(message='Are you sure you want to overwrite the existing files?', icon='question', title='CAUTION!'):
+			saveActn()
+		else:
+			dupeFile()
+			saveActn()
 # DATA READ-IN
 # parse the xmlfile
 #!!if templates.xml doesn't exist
@@ -173,17 +251,17 @@ apa.revision=int(root.attrib['revision'])
 # set dictionary of templates
 apa.templates={}
 for child in root:
-	tName=child.attrib['name']
-	apa.templates[tName]=template(child[0].attrib,child[1].attrib)
+	cName=child.attrib['name']
+	apa.templates[cName]=template(child[0].attrib,child[1].attrib)
 	if 'comment' in child.attrib:
-		apa.templates[tName].comment=child.attrib['comment']
+		apa.templates[cName].comment=child.attrib['comment']
 # set list of template names
 nameList=list(apa.templates)
 
-# set interactionMode to run
-#!!do i really need interactionMode?
+# set apa.interactionMode to run
+#!!do i really need apa.interactionMode?
 #!!this might have some scope issues, look into it!
-interactionMode='run'
+apa.interactionMode='run'
 
 # INITIALISE INTERFACE
 # set the main application window
@@ -236,7 +314,7 @@ edtBtn.grid(column=3, row=4, sticky=(E,W))
 
 #-save apa and xml
 #!!activate only after an edit. Don't need to worry about new items or duplicates, those are meant to be edited anyway
-savBtn=Button(mainFrame, text='Save', command=None, state='disabled')
+savBtn=Button(mainFrame, text='Save', command=saveBtn)
 savBtn.grid(column=3, row=5, sticky=(E,W))
 
 #-test
@@ -303,5 +381,6 @@ templateListBox.bind('<<ListboxSelect>>', updateFields)
 # double click a template in templateListBox, enter edit
 #!!not working - why?
 templateListBox.bind('<<Double-1>>', edit)
+#!!set tab events for each entry box that will switch the focus to the next entry field
 
 app.mainloop()

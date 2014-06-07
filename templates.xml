@@ -1,735 +1,703 @@
-<file lMod="05/21/2014" revision="5">
-	<template name="5.906x7">
-		<offset x="2" y="3.5471" />
-		<size width="7" height="5.906" />
-	</template>
-	<template name="5x11">
-		<offset x="1.5" y="3.5001" />
-		<size width="11" height="5" />
-	</template>
-	<template name="5x8">
-		<offset x="1.5" y="3.5001" />
-		<size width="8" height="5" />
-	</template>
-	<template name="6.25x7">
-		<offset x="2" y="3.3751" />
-		<size width="7" height="6.25" />
-	</template>
-	<template name="7.9135x10">
-		<offset x="2" y="3.5433" />
-		<size width="10" height="7.9135" />
-	</template>
-	<template name="8.25x10.875">
-		<offset x="1.5625" y="3.3751" />
-		<size width="10.875" height="8.25" />
-	</template>
-	<template name="CA_2ftTrans">
-		<offset x="3" y="5" />
-		<size width="21.6875" height="21.6875" />
-	</template>
-	<template name="CA_BacklitSign">
-		<offset x="3" y="5" />
-		<size width="24" height="24" />
-	</template>
-	<template name="CA_BacklitSignHeader">
-		<offset x="3" y="5" />
-		<size width="24" height="12" />
+<file lMod="05/21/2014" revision="8">
+	<template comment="second" name="CA_BacklitSignHeader">
+		<offset x="3.0" y="5.0" />
+		<size height="12.0" width="24.0" />
 	</template>
 	<template name="CA_BrandBrd">
 		<offset x="3" y="5" />
-		<size width="120" height="60" />
+		<size height="60" width="120" />
 	</template>
 	<template name="CA_CntrMat">
 		<offset x="3" y="5" />
-		<size width="11.625" height="16.5" />
+		<size height="16.5" width="11.625" />
 	</template>
 	<template name="CA_GtwyPoleBanr">
 		<offset x="3" y="5.0001" />
-		<size width="36" height="96" />
+		<size height="96" width="36" />
 	</template>
 	<template name="CA_InStr4ft_Menu">
 		<offset x="3" y="5" />
-		<size width="43.625" height="21.75" />
+		<size height="21.75" width="43.625" />
 	</template>
 	<template name="CA_InStr4ft_Menu_Vert">
 		<offset x="3.0005" y="4.9929" />
-		<size width="21.75" height="38.625" />
+		<size height="38.625" width="21.75" />
 	</template>
 	<template name="CA_LgRgTop">
 		<offset x="2.9998" y="5" />
-		<size width="11" height="8" />
+		<size height="8" width="11" />
 	</template>
 	<template name="CA_M4_DTTrns">
 		<offset x="5.1255" y="4.9929" />
-		<size width="21.75" height="38.625" />
+		<size height="38.625" width="21.75" />
 	</template>
 	<template name="CA_M4_MonsterTopr">
 		<offset x="3.0001" y="5" />
-		<size width="100.126" height="28" />
+		<size height="28" width="100.126" />
 	</template>
 	<template name="CA_M4_MonsterTopr_Sm">
 		<offset x="3" y="5" />
-		<size width="100.126" height="23" />
+		<size height="23" width="100.126" />
 	</template>
 	<template name="CA_MagWingWall_A">
 		<offset x="3" y="5.0002" />
-		<size width="26" height="70" />
+		<size height="70" width="26" />
 	</template>
 	<template name="CA_MagWingWall_B">
 		<offset x="3" y="5" />
-		<size width="48" height="70" />
+		<size height="70" width="48" />
 	</template>
-	<template name="CA_MagWingWall_C" comment="asdf">
+	<template comment="asdf" name="CA_MagWingWall_C">
 		<offset x="3" y="5.0003" />
-		<size width="18" height="108" />
+		<size height="108" width="18" />
 	</template>
 	<template name="CA_ParVigo">
 		<offset x="3" y="5.0001" />
-		<size width="8.5" height="6.25" />
+		<size height="6.25" width="8.5" />
 	</template>
 	<template name="CA_PoleSgn">
 		<offset x="3" y="5" />
-		<size width="43.75" height="63.625" />
+		<size height="63.625" width="43.75" />
 	</template>
 	<template name="CA_PromoSnipe">
 		<offset x="3" y="5" />
-		<size width="21.75" height="5.75" />
+		<size height="5.75" width="21.75" />
 	</template>
-	<template name="CA_PromoSnipe_V2" comment="asdf">
+	<template comment="asdf" name="CA_PromoSnipe_V2">
 		<offset x="3" y="5" />
-		<size width="21.75" height="4" />
+		<size height="4" width="21.75" />
 	</template>
 	<template name="CA_PromoSnipe_Vert">
 		<offset x="3" y="5" />
-		<size width="21.75" height="6.75" />
+		<size height="6.75" width="21.75" />
 	</template>
 	<template name="CA_PromoSnipe_Vert">
 		<offset x="3" y="4.75" />
-		<size width="21.75" height="6.75" />
+		<size height="6.75" width="21.75" />
 	</template>
 	<template name="CA_RgTop">
 		<offset x="2.9998" y="4.97" />
-		<size width="9.375" height="7.125" />
+		<size height="7.125" width="9.375" />
 	</template>
 	<template name="CA_WinPst">
 		<offset x="3" y="5" />
-		<size width="26" height="37" />
+		<size height="37" width="26" />
 	</template>
 	<template name="Crew_Poster">
 		<offset x="3" y="5" />
-		<size width="11" height="17" />
+		<size height="17" width="11" />
 	</template>
 	<template name="Crew_Reminder_Strip">
 		<offset x="3" y="5" />
-		<size width="8" height="2.5" />
+		<size height="2.5" width="8" />
 	</template>
 	<template name="CustWinPst">
 		<offset x="3" y="5" />
-		<size width="17" height="22.5" />
+		<size height="22.5" width="17" />
 	</template>
 	<template name="DT_78_Monster_Topper">
 		<offset x="3" y="5" />
-		<size width="39" height="13.25" />
+		<size height="13.25" width="39" />
 	</template>
-	<template name="DT_Backlit_PreSell_Trans" comment="asdf">
+	<template comment="asdf" name="DT_Backlit_PreSell_Trans">
 		<offset x="3" y="5" />
-		<size width="20" height="53.9375" />
+		<size height="53.9375" width="20" />
 	</template>
 	<template name="DT_BVM_Trans">
 		<offset x="3" y="5" />
-		<size width="20.5" height="18.25" />
+		<size height="18.25" width="20.5" />
 	</template>
 	<template name="DT_COD_Graphics_Full">
 		<offset x="3" y="5" />
-		<size width="14.222" height="10.667" />
+		<size height="10.667" width="14.222" />
 	</template>
 	<template name="DT_COD_Graphics_Split">
 		<offset x="3" y="5" />
-		<size width="4.444" height="10.667" />
+		<size height="10.667" width="4.444" />
 	</template>
 	<template name="DT_COD_LugOn">
 		<offset x="3" y="5" />
-		<size width="21" height="12" />
+		<size height="12" width="21" />
 	</template>
 	<template name="DT_Col1_Beverage_Menu_Carrier_Trans">
 		<offset x="2.9998" y="4.9998" />
-		<size width="9.59375" height="16.4375" />
+		<size height="16.4375" width="9.59375" />
 	</template>
 	<template name="DT_Col1_Beverage_Menu_Trans">
 		<offset x="3" y="5" />
-		<size width="20" height="5.5" />
+		<size height="5.5" width="20" />
 	</template>
 	<template name="DT_Col1_Beverage_Promo_Insert">
 		<offset x="2.9998" y="4.9998" />
-		<size width="9.59375" height="16.4375" />
+		<size height="16.4375" width="9.59375" />
 	</template>
 	<template name="DT_Col1_Breakfast_McCafe_Insert">
 		<offset x="3" y="5" />
-		<size width="20" height="5.5" />
+		<size height="5.5" width="20" />
 	</template>
 	<template name="DT_Col1_Dessert_Menu_Trans">
 		<offset x="2.9998" y="4.9998" />
-		<size width="9.59375" height="16.4375" />
+		<size height="16.4375" width="9.59375" />
 	</template>
 	<template name="DT_Col1_Dessert_Promo_Insert_Half">
 		<offset x="3" y="5" />
-		<size width="10.0938" height="8.41" />
+		<size height="8.41" width="10.0938" />
 	</template>
 	<template name="DT_Col1_Dessert_Promo_Insert_Qtr">
 		<offset x="3.0019" y="5" />
-		<size width="10.0938" height="4.390625" />
+		<size height="4.390625" width="10.0938" />
 	</template>
 	<template name="DT_Col1_McCafe_Menu_Promo_Trans">
 		<offset x="3" y="5" />
-		<size width="20" height="25.4375" />
+		<size height="25.4375" width="20" />
 	</template>
 	<template name="DT_Col1_Small_Promo_Trans">
 		<offset x="3" y="5" />
-		<size width="20.0625" height="7.8125" />
+		<size height="7.8125" width="20.0625" />
 	</template>
 	<template name="DT_Col2_Dollar_Menu_Trans">
 		<offset x="3" y="5" />
-		<size width="20.5" height="8.5" />
+		<size height="8.5" width="20.5" />
 	</template>
 	<template name="DT_Col2_Promo_Trans_OneThird">
 		<offset x="3" y="5" />
-		<size width="20.5" height="18.25" />
+		<size height="18.25" width="20.5" />
 	</template>
 	<template name="DT_Col2_XVM_Menu_Trans">
 		<offset x="3" y="5" />
-		<size width="20.5" height="10.25" />
+		<size height="10.25" width="20.5" />
 	</template>
 	<template name="DT_Col3_HM_Menu_Oatmeal_Trans">
 		<offset x="3" y="5" />
-		<size width="20.5" height="18.25" />
+		<size height="18.25" width="20.5" />
 	</template>
 	<template name="DT_Col3_Promo_Trans_OneThird">
 		<offset x="3" y="5" />
-		<size width="20.5" height="18.25" />
+		<size height="18.25" width="20.5" />
 	</template>
 	<template name="DT_Col3_Youth_Promo_Trans">
 		<offset x="3" y="5" />
-		<size width="20.5" height="18.25" />
+		<size height="18.25" width="20.5" />
 	</template>
 	<template name="DT_Col4Menu_Trans">
 		<offset x="3" y="5" />
-		<size width="20" height="54" />
+		<size height="54" width="20" />
 	</template>
 	<template name="DT_EVM_Trans">
 		<offset x="3" y="5" />
-		<size width="20.5" height="18.25" />
+		<size height="18.25" width="20.5" />
 	</template>
 	<template name="DT_Gateway_Banner">
 		<offset x="3" y="5" />
-		<size width="24" height="54.75" />
+		<size height="54.75" width="24" />
 	</template>
 	<template name="DT_Graphic_Awning_Center">
 		<offset x="3" y="5" />
-		<size width="12" height="5.85" />
+		<size height="5.85" width="12" />
 	</template>
 	<template name="DT_Graphic_Awning_Left">
 		<offset x="2.9994" y="4.9989" />
-		<size width="23.983" height="3.938" />
+		<size height="3.938" width="23.983" />
 	</template>
 	<template name="DT_Graphic_Awning_Right">
 		<offset x="2.9994" y="4.9989" />
-		<size width="23.983" height="3.938" />
+		<size height="3.938" width="23.983" />
 	</template>
 	<template name="DT_In-Ground_Sign">
 		<offset x="3" y="5" />
-		<size width="12" height="44" />
+		<size height="44" width="12" />
 	</template>
 	<template name="DT_Kiosk_Cling">
 		<offset x="3" y="5" />
-		<size width="20.5" height="19.653" />
+		<size height="19.653" width="20.5" />
 	</template>
 	<template name="DT_Lawn_Sign">
 		<offset x="3" y="5" />
-		<size width="22" height="28" />
+		<size height="28" width="22" />
 	</template>
 	<template name="DT_Monster_Topper">
 		<offset x="3" y="5" />
-		<size width="47" height="18" />
+		<size height="18" width="47" />
 	</template>
 	<template name="DT_Monster_Topper-3Sizes">
 		<offset x="3" y="5" />
-		<size width="45" height="15" />
+		<size height="15" width="45" />
 	</template>
 	<template name="DT_Pay_Window_Cling">
 		<offset x="3" y="5" />
-		<size width="8" height="9" />
+		<size height="9" width="8" />
 	</template>
 	<template name="DT_Pre-Sell_Kiosk_2TAB">
 		<offset x="2.9981" y="4.9999" />
-		<size width="20.875" height="58.875" />
+		<size height="58.875" width="20.875" />
 	</template>
 	<template name="DT_Pre-Sell_Kiosk_GCM">
 		<offset x="2.9981" y="4.9999" />
-		<size width="20.875" height="58.875" />
+		<size height="58.875" width="20.875" />
 	</template>
 	<template name="DT_Pre-Sell_Kiosk_HCM">
 		<offset x="2.9981" y="4.9999" />
-		<size width="20.875" height="58.875" />
+		<size height="58.875" width="20.875" />
 	</template>
 	<template name="DT_Real_Estate_Sleeve">
 		<offset x="3" y="5" />
-		<size width="21.75" height="36.0117" />
+		<size height="36.0117" width="21.75" />
 	</template>
 	<template name="DT_Side_Kick">
 		<offset x="3" y="5" />
-		<size width="23.5" height="45" />
+		<size height="45" width="23.5" />
 	</template>
 	<template name="DT_Side_Kick_right">
 		<offset x="3" y="5" />
-		<size width="23.5" height="45" />
+		<size height="45" width="23.5" />
 	</template>
 	<template name="DT_Side_Lug-On">
 		<offset x="3" y="5" />
-		<size width="14" height="43" />
+		<size height="43" width="14" />
 	</template>
 	<template name="DT_Topper">
 		<offset x="3" y="5" />
-		<size width="54" height="26.5" />
+		<size height="26.5" width="54" />
 	</template>
 	<template name="DT_Topper_4Grid_BVM_Left">
 		<offset x="3" y="5" />
-		<size width="46.5" height="15.75" />
+		<size height="15.75" width="46.5" />
 	</template>
 	<template name="DT_Topper_5Grid_BVM_Left">
 		<offset x="3" y="5" />
-		<size width="46.5" height="15.75" />
+		<size height="15.75" width="46.5" />
 	</template>
 	<template name="DT_Topper_Mini">
 		<offset x="3" y="5" />
-		<size width="36" height="20.6" />
+		<size height="20.6" width="36" />
 	</template>
 	<template name="DT_Topper_Multi">
 		<offset x="3" y="5" />
-		<size width="48" height="26.5" />
+		<size height="26.5" width="48" />
 	</template>
 	<template name="DT_TwoThird_Bttm_Promo_Trans">
 		<offset x="3" y="5" />
-		<size width="20" height="36.2" />
+		<size height="36.2" width="20" />
 	</template>
 	<template name="DT_TwoThird_Top_Promo_Trans">
 		<offset x="3" y="5" />
-		<size width="20.47" height="36" />
+		<size height="36" width="20.47" />
 	</template>
 	<template name="FlrStnd-Bttm_Eng_r1_A10_MnplyCA_123512_19">
 		<offset x="1.75" y="5" />
-		<size width="22" height="28" />
+		<size height="28" width="22" />
 	</template>
 	<template name="FlrStnd-Top_Eng_r1_A10_MnplyCA_123512_18">
 		<offset x="1.75" y="5" />
-		<size width="22" height="28" />
+		<size height="28" width="22" />
 	</template>
 	<template name="Freestanding_PoleSign">
 		<offset x="3" y="5" />
-		<size width="27" height="50" />
+		<size height="50" width="27" />
 	</template>
 	<template name="Graphic_Readerboard_2Line">
 		<offset x="3" y="5" />
-		<size width="96" height="34.4191" />
+		<size height="34.4191" width="96" />
 	</template>
 	<template name="Graphic_Readerboard_2x8">
 		<offset x="3" y="5" />
-		<size width="96.1875" height="24" />
+		<size height="24" width="96.1875" />
 	</template>
 	<template name="Graphic_Readerboard_3Line">
 		<offset x="3" y="4.9992" />
-		<size width="96" height="44.7984" />
+		<size height="44.7984" width="96" />
 	</template>
 	<template name="Graphic_Readerboard_3x8">
 		<offset x="3" y="5" />
-		<size width="96.1875" height="34.5" />
+		<size height="34.5" width="96.1875" />
 	</template>
 	<template name="HM_CA_FR_Vestibule_Poster">
 		<offset x="3.0002" y="5.0001" />
-		<size width="18.125" height="25.625" />
+		<size height="25.625" width="18.125" />
 	</template>
 	<template name="HM_CA_Vestibule_Poster">
 		<offset x="3.0002" y="5.0001" />
-		<size width="18.125" height="25.625" />
+		<size height="25.625" width="18.125" />
 	</template>
 	<template name="HM_CA_Vestibule_Poster_MomsTrust">
 		<offset x="3.0002" y="5.0001" />
-		<size width="18.125" height="25.625" />
+		<size height="25.625" width="18.125" />
 	</template>
 	<template name="HM_Door_Decal_Bottom">
 		<offset x="3" y="5" />
-		<size width="24.5" height="35" />
+		<size height="35" width="24.5" />
 	</template>
 	<template name="HM_Door_Decal_Top">
 		<offset x="3" y="5" />
-		<size width="24.5" height="35" />
+		<size height="35" width="24.5" />
 	</template>
 	<template name="HM_DT_TrnsFP43_Islands">
 		<offset x="3" y="5" />
-		<size width="20.687" height="13.33" />
+		<size height="13.33" width="20.687" />
 	</template>
 	<template name="HM_DT_TrnsLg_Islands">
 		<offset x="3" y="5.0001" />
-		<size width="21.75" height="21.75" />
+		<size height="21.75" width="21.75" />
 	</template>
 	<template name="HM_DT_TrnsSm_Islands">
 		<offset x="3.0001" y="5.0002" />
-		<size width="13.75" height="13.75" />
+		<size height="13.75" width="13.75" />
 	</template>
 	HM_Toy_Merchandiser_Insert	0	0	28	40	
 	<template name="HM_Vestibule_Poster">
 		<offset x="3.0001" y="5.0001" />
-		<size width="26" height="35.5" />
+		<size height="35.5" width="26" />
 	</template>
 	<template name="HM_Vestibule_Poster_MomsTrust">
 		<offset x="3.0001" y="5" />
-		<size width="26" height="35.5" />
+		<size height="35.5" width="26" />
 	</template>
 	<template name="IS_1.5_Category_Trans">
 		<offset x="3" y="5" />
-		<size width="17.125" height="22.125" />
+		<size height="22.125" width="17.125" />
 	</template>
 	<template name="IS_1.5_Promo_Trans">
 		<offset x="3" y="5" />
-		<size width="17.125" height="22.125" />
+		<size height="22.125" width="17.125" />
 	</template>
 	<template name="IS_21-75_Category_Trans">
 		<offset x="3" y="5" />
-		<size width="21.75" height="21.75" />
+		<size height="21.75" width="21.75" />
 	</template>
 	<template name="IS_21-75_Promo_Trans">
 		<offset x="3" y="5" />
-		<size width="21.75" height="21.75" />
+		<size height="21.75" width="21.75" />
 	</template>
 	<template name="IS_3FT_Promo_Trans">
 		<offset x="3" y="5" />
-		<size width="33.75" height="21.75" />
+		<size height="21.75" width="33.75" />
 	</template>
 	<template name="IS_3Ft_Trans_SEEQ">
 		<offset x="3" y="5" />
-		<size width="33.75" height="21.75" />
+		<size height="21.75" width="33.75" />
 	</template>
 	<template name="IS_3PanelKiosk">
 		<offset x="3" y="5" />
-		<size width="20.875" height="19.3125" />
+		<size height="19.3125" width="20.875" />
 	</template>
 	<template name="IS_3Pocket_Kiosk">
 		<offset x="3" y="5" />
-		<size width="20.5" height="18.25" />
+		<size height="18.25" width="20.5" />
 	</template>
 	<template name="IS_ArchCard_Back">
 		<offset x="2.9998" y="4.9964" />
-		<size width="3.375" height="2.125" />
+		<size height="2.125" width="3.375" />
 	</template>
 	<template name="IS_ArchCard_Display_Insert">
 		<offset x="2.9998" y="4.9964" />
-		<size width="6.375" height="3.625" />
+		<size height="3.625" width="6.375" />
 	</template>
 	<template name="IS_ArchCard_Front">
 		<offset x="2.9998" y="4.9964" />
-		<size width="3.375" height="2.125" />
+		<size height="2.125" width="3.375" />
 	</template>
 	<template name="IS_ArchCardHolder_In">
 		<offset x="3.0001" y="5" />
-		<size width="7.625" height="3.25" />
+		<size height="3.25" width="7.625" />
 	</template>
 	<template name="IS_ArchCardHolder_Out">
 		<offset x="3" y="5" />
-		<size width="7.625" height="3.25" />
+		<size height="3.25" width="7.625" />
 	</template>
 	<template name="IS_Bagstuffer">
 		<offset x="3" y="5" />
-		<size width="5.5" height="7" />
+		<size height="7" width="5.5" />
 	</template>
 	<template name="IS_BckLit_Register_Topper">
 		<offset x="2.9998" y="5" />
-		<size width="11.5" height="8.25" />
+		<size height="8.25" width="11.5" />
 	</template>
 	<template name="IS_Breakfast_Category_Trans_TwoThirds">
 		<offset x="3" y="5" />
-		<size width="21.75" height="13.8125" />
+		<size height="13.8125" width="21.75" />
 	</template>
 	<template name="IS_BVM_Insert">
 		<offset x="3" y="5" />
-		<size width="8.312" height="8.49" />
+		<size height="8.49" width="8.312" />
 	</template>
 	<template name="IS_Canister_Wrap">
 		<offset x="3" y="5" />
-		<size width="49.125" height="10.25" />
+		<size height="10.25" width="49.125" />
 	</template>
 	<template name="IS_Category_Trans">
 		<offset x="3" y="5" />
-		<size width="21.75" height="6.75" />
+		<size height="6.75" width="21.75" />
 	</template>
 	<template name="IS_Counter_Card">
 		<offset x="3" y="5" />
-		<size width="10" height="15" />
+		<size height="15" width="10" />
 	</template>
 	<template name="IS_Counter_Card_Tear_Pad">
 		<offset x="2.9998" y="4.9964" />
-		<size width="6" height="4" />
+		<size height="4" width="6" />
 	</template>
 	<template name="IS_Counter_Cling">
 		<offset x="3.0001" y="5" />
-		<size width="12" height="12" />
+		<size height="12" width="12" />
 	</template>
 	<template name="IS_Countermat">
 		<offset x="2.9999" y="5" />
-		<size width="13" height="16" />
+		<size height="16" width="13" />
 	</template>
 	<template name="IS_Dessert_Promo_Insert_Half">
 		<offset x="3" y="4.75" />
-		<size width="11.0625" height="14.3125" />
+		<size height="14.3125" width="11.0625" />
 	</template>
 	<template name="IS_Dessert_Promo_Insert_Qtr">
 		<offset x="3" y="5" />
-		<size width="5.71875" height="13.8125" />
+		<size height="13.8125" width="5.71875" />
 	</template>
 	<template name="IS_EVM_Insert_Large">
 		<offset x="3" y="5" />
-		<size width="8.312" height="17.115" />
+		<size height="17.115" width="8.312" />
 	</template>
 	<template name="IS_EVM_Insert_Small">
 		<offset x="3" y="5" />
-		<size width="8.312" height="8.49" />
+		<size height="8.49" width="8.312" />
 	</template>
 	<template name="IS_HPOP_Insert_Full">
 		<offset x="3" y="5" />
-		<size width="48.4375" height="4.875" />
+		<size height="4.875" width="48.4375" />
 	</template>
 	<template name="IS_HPOP_Insert_Half">
 		<offset x="3" y="5" />
-		<size width="24.40625" height="4.875" />
+		<size height="4.875" width="24.40625" />
 	</template>
 	<template name="IS_HPOP_Insert_Qtr">
 		<offset x="2.993" y="4.9931" />
-		<size width="12.3906" height="4.875" />
+		<size height="4.875" width="12.3906" />
 	</template>
 	<template name="IS_Interrupt_Panel">
 		<offset x="3" y="5" />
-		<size width="20.875" height="58.875" />
+		<size height="58.875" width="20.875" />
 	</template>
 	<template name="IS_MB_Plackard">
 		<offset x="2.9956" y="4.9956" />
-		<size width="16" height="3" />
+		<size height="3" width="16" />
 	</template>
 	<template name="IS_MB2K_LugOn">
 		<offset x="3" y="5" />
-		<size width="23.5" height="7.5" />
+		<size height="7.5" width="23.5" />
 	</template>
 	<template name="IS_McCafe_CellWall_Graphic">
 		<offset x="3" y="5" />
-		<size width="112" height="9" />
+		<size height="9" width="112" />
 	</template>
 	<template name="IS_McCafe_Louver_Poster">
 		<offset x="3" y="5" />
-		<size width="12" height="16" />
+		<size height="16" width="12" />
 	</template>
 	<template name="IS_McCafe_Sm_CellWall_Graphic">
 		<offset x="3" y="5" />
-		<size width="36" height="9" />
+		<size height="9" width="36" />
 	</template>
 	<template name="IS_Merch">
 		<offset x="3.0001" y="5.0001" />
-		<size width="12.5" height="16.75" />
+		<size height="16.75" width="12.5" />
 	</template>
 	<template name="IS_PreSell_Kiosk_2TAB">
 		<offset x="2.9991" y="4.9999" />
-		<size width="20.875" height="58.875" />
+		<size height="58.875" width="20.875" />
 	</template>
 	<template name="IS_PreSell_Kiosk_GCM">
 		<offset x="2.9987" y="4.9999" />
-		<size width="20.875" height="58.875" />
+		<size height="58.875" width="20.875" />
 	</template>
 	<template name="IS_PreSell_Kiosk_HCM">
 		<offset x="2.9987" y="4.9999" />
-		<size width="20.875" height="58.875" />
+		<size height="58.875" width="20.875" />
 	</template>
 	<template name="IS_PreSell_Kiosk_Header_GCM">
 		<offset x="2.9997" y="4.9999" />
-		<size width="20.875" height="67" />
+		<size height="67" width="20.875" />
 	</template>
 	<template name="IS_PreSell_Kiosk_Header_HCM">
 		<offset x="2.9997" y="4.9999" />
-		<size width="20.875" height="67" />
+		<size height="67" width="20.875" />
 	</template>
 	<template name="IS_Register_Topper">
 		<offset x="3.0001" y="5" />
-		<size width="8.4375" height="6.6875" />
+		<size height="6.6875" width="8.4375" />
 	</template>
 	<template name="IS_SEEQ_Kiosk_GCM">
 		<offset x="2.9997" y="4.9999" />
-		<size width="20.875" height="58.875" />
+		<size height="58.875" width="20.875" />
 	</template>
 	<template name="IS_SEEQ_Kiosk_HCM">
 		<offset x="2.9997" y="4.9999" />
-		<size width="20.875" height="58.875" />
+		<size height="58.875" width="20.875" />
 	</template>
 	<template name="IS_SidePanel_MB_SEEQ">
 		<offset x="3" y="5" />
-		<size width="20.875" height="58.875" />
+		<size height="58.875" width="20.875" />
 	</template>
 	<template name="IS_SideWall_Full_Insert">
 		<offset x="3" y="5" />
-		<size width="18" height="26.93" />
+		<size height="26.93" width="18" />
 	</template>
 	<template name="IS_SideWall_Insert">
 		<offset x="3" y="5" />
-		<size width="18.5" height="9.25" />
+		<size height="9.25" width="18.5" />
 	</template>
 	<template name="IS_SideWall_Kiosk_Back">
 		<offset x="2.9998" y="4.9999" />
-		<size width="20.875" height="58.875" />
+		<size height="58.875" width="20.875" />
 	</template>
 	<template name="IS_SideWall_Kiosk_Front">
 		<offset x="2.9998" y="4.9999" />
-		<size width="20.875" height="58.875" />
+		<size height="58.875" width="20.875" />
 	</template>
 	<template name="IS_SideWall_TwoThird_Insert">
 		<offset x="3" y="5" />
-		<size width="18.5" height="18" />
+		<size height="18" width="18.5" />
 	</template>
 	<template name="IS_SideWallKiosk_Bttm">
 		<offset x="3" y="5.0625" />
-		<size width="20.875" height="29.4375" />
+		<size height="29.4375" width="20.875" />
 	</template>
 	<template name="IS_SideWallKiosk_Top">
 		<offset x="3" y="5" />
-		<size width="20.875" height="29.4375" />
+		<size height="29.4375" width="20.875" />
 	</template>
 	<template name="IS_TableCard_ZFold">
 		<offset x="3" y="5" />
-		<size width="12.75" height="6.25" />
+		<size height="6.25" width="12.75" />
 	</template>
 	<template name="IS_TableCling">
 		<offset x="3.0001" y="4.997" />
-		<size width="12" height="12" />
+		<size height="12" width="12" />
 	</template>
 	<template name="IS_TakeOne">
 		<offset x="3" y="5" />
-		<size width="5.5" height="7" />
+		<size height="7" width="5.5" />
 	</template>
 	<template name="IS_TrayHolder_Bck">
 		<offset x="3" y="5" />
-		<size width="29.03125" height="24.5" />
+		<size height="24.5" width="29.03125" />
 	</template>
 	<template name="IS_TrayHolder_Frt">
 		<offset x="3" y="5" />
-		<size width="28.337" height="24.5" />
+		<size height="24.5" width="28.337" />
 	</template>
 	<template name="IS_Trayliner">
 		<offset x="3" y="5" />
-		<size width="14" height="11" />
+		<size height="11" width="14" />
 	</template>
 	<template name="IS_TwoThird_Category_Trans">
 		<offset x="3" y="5" />
-		<size width="21.75" height="13.8125" />
+		<size height="13.8125" width="21.75" />
 	</template>
 	<template name="New_DT_Pre-Sell_Kiosk">
 		<offset x="3" y="5" />
-		<size width="20.875" height="79" />
+		<size height="79" width="20.875" />
 	</template>
 	<template name="New_IS_Pre-Sell_Kiosk_2TAB">
 		<offset x="3.74128" y="5.61777" />
-		<size width="20.875" height="58.875" />
+		<size height="58.875" width="20.875" />
 	</template>
 	<template name="Nutritional_Ad_Slick">
 		<offset x="3.1224" y="5.1224" />
-		<size width="8.5" height="11" />
+		<size height="11" width="8.5" />
 	</template>
 	<template name="OS_Window_Cling_36x60">
 		<offset x="3.0007" y="4.9983" />
-		<size width="36" height="60" />
+		<size height="60" width="36" />
 	</template>
 	<template name="OS_Window_Decal_36x60">
 		<offset x="3.0007" y="4.9983" />
-		<size width="36" height="60" />
+		<size height="60" width="36" />
 	</template>
 	<template name="OS_Window_Poster_36x60">
 		<offset x="3.0007" y="4.9983" />
-		<size width="36" height="60" />
+		<size height="60" width="36" />
 	</template>
 	<template name="PlayLand_Banner">
 		<offset x="2.99653" y="4.99653" />
-		<size width="29.5" height="11.375" />
+		<size height="11.375" width="29.5" />
 	</template>
 	<template name="PremPC_Bck">
 		<offset x="1.6251" y="4.17" />
-		<size width="11" height="5.66" />
+		<size height="5.66" width="11" />
 	</template>
 	<template name="PremPC_Frt">
 		<offset x="1.6251" y="4.17" />
-		<size width="11" height="5.66" />
+		<size height="5.66" width="11" />
 	</template>
 	<template name="PremPC_SharedBck">
 		<offset x="1.6251" y="4.17" />
-		<size width="11" height="5.66" />
+		<size height="5.66" width="11" />
 	</template>
 	<template name="PromoBack_r1_Y12">
 		<offset x="1.5" y="3.75" />
-		<size width="8.5" height="11" />
+		<size height="11" width="8.5" />
 	</template>
 	<template name="PromoBi">
 		<offset x="3" y="5" />
-		<size width="8.5" height="11" />
+		<size height="11" width="8.5" />
 	</template>
 	<template name="PromoEng">
 		<offset x="3" y="5" />
-		<size width="8.5" height="11" />
+		<size height="11" width="8.5" />
 	</template>
 	<template name="PumpTopper_Lg">
 		<offset x="3" y="4.9931" />
-		<size width="29.5" height="14.25" />
+		<size height="14.25" width="29.5" />
 	</template>
 	<template name="PumpTopper_Sm">
 		<offset x="3" y="5" />
-		<size width="20" height="13" />
+		<size height="13" width="20" />
 	</template>
 	<template name="RealEstate_Sign">
 		<offset x="3" y="5" />
-		<size width="20" height="36" />
+		<size height="36" width="20" />
 	</template>
 	<template name="RoadsideBanner">
 		<offset x="3.3191" y="5.3175" />
-		<size width="3.307" height="15.6177" />
+		<size height="15.6177" width="3.307" />
 	</template>
 	<template name="Rooftop_Banner">
 		<offset x="3" y="5" />
-		<size width="59.5" height="8.5" />
+		<size height="8.5" width="59.5" />
 	</template>
 	<template name="Sm_DoorDecal">
 		<offset x="3" y="5" />
-		<size width="8" height="9" />
+		<size height="9" width="8" />
 	</template>
 	<template name="TrailerGrphc_31ft">
 		<offset x="2.9998" y="5" />
-		<size width="7.75" height="2.0518" />
+		<size height="2.0518" width="7.75" />
 	</template>
 	<template name="TrailerGrphc_53ft">
 		<offset x="2.9998" y="5" />
-		<size width="13.25" height="2.0518" />
+		<size height="2.0518" width="13.25" />
 	</template>
 	<template name="TrailerGrphc_Back">
 		<offset x="2.9998" y="5" />
-		<size width="2" height="2" />
+		<size height="2" width="2" />
 	</template>
 	<template name="Vestibule_Poster">
 		<offset x="3.0001" y="5.0001" />
-		<size width="26" height="35.5" />
+		<size height="35.5" width="26" />
 	</template>
 	<template name="Window_BillbrdPoster">
 		<offset x="3" y="5" />
-		<size width="76" height="55" />
+		<size height="55" width="76" />
 	</template>
 	<template name="Window_Cling">
 		<offset x="3.0008" y="4.9983" />
-		<size width="29" height="42" />
+		<size height="42" width="29" />
 	</template>
 	<template name="Window_Decal">
 		<offset x="3.0008" y="4.9983" />
-		<size width="29" height="42" />
+		<size height="42" width="29" />
 	</template>
-	<template name="Window_Poster">
+	<template comment="asdf" name="Alpha">
 		<offset x="3" y="5.0002" />
-		<size width="34" height="45" />
-	</template>
+		<size height="45" width="34" />
+	<offset x="1.0" y="2.0" /><size height="4.0" width="3.0" /><offset x="1.0" y="2.0" /><size height="4.0" width="3.0" /></template>
 </file>

@@ -1,6 +1,10 @@
-<file lMod="06/08/2014" revision="0">
+<file lMod="06/08/2014" revision="4">
 	<template name="New">
-		<offset x="0" y="0" />
-		<size width="0" height="0" />
+		<offset x="0.0" y="0.0" />
+		<size width="0.0" height="0.0" />
+	</template>
+	<template name="New13">
+		<offset x="0.0" y="0.0" />
+		<size width="0.0" height="0.0" />
 	</template>
 </file>

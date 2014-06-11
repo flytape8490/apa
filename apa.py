@@ -1,5 +1,5 @@
 # Python 3.x/2.7
-# v 0.8.6
+# v 0.9
 # APAssist  -- apa.py
 
 # A tool written to aid in the generation of APA files for the
@@ -56,10 +56,12 @@ def dupeFile():
 	shutil.move('templates.xml','old/templates.r%s.xml'%apa.revision)
 	try:
 		shutil.move('Job.apa','old/Job.r%s.apa'%apa.revision)
-	except FileNotFoundError:
+	except IOError: #!!filenameerror in python3
 		pass
 	# update the revision number
 	apa.revision+=1
+	lModLbl['text']='Last Modified: %s'%apa.lMod
+	revisionLbl['text']='Revision: %s'%apa.revision
 	messagebox.showinfo(message='Files successfully copied.')
 def lockFields():
 	templateNameBox['state']='disabled'
@@ -114,9 +116,9 @@ def editMode(mode):
 	newBtn['command']=cancelEdit
 	delBtn['state']='disabled'
 	dupBtn['state']='disabled'
-	edtBtn['text']='Apply Change'
-	edtBtn['command']=apply
-	savBtn['state']='disabled'
+	edtBtn['state']='disabled'
+	savBtn['text']='Apply Change'
+	savBtn['command']=apply
 	tstBtn['state']='disabled'
 	# set interactionMode to mode
 	apa.interactionMode=mode
@@ -129,9 +131,9 @@ def normalMode():
 	newBtn['command']=newEntry
 	delBtn['state']='normal'
 	dupBtn['state']='normal'
-	edtBtn['text']='Edit Entry'
-	edtBtn['command']=edit
-	savBtn['state']='normal'
+	edtBtn['state']='normal'
+	savBtn['text']='Save'
+	savBtn['command']=saveBtn
 	tstBtn['state']='normal'
 	# set interactionMode
 	apa.interactionMode='normal'
@@ -237,7 +239,6 @@ def saveActn():
 	for cName in sorted(apa.templates):
 		cTemp=apa.templates[cName]
 		if cTemp.comment!='':
-			apaFile.write('!%s\n'%cTemp.comment)
 			cComm=(' comment="'+cTemp.comment+'"')
 		else:
 			cComm=''
@@ -272,7 +273,7 @@ def saveBtn():
 # open the library, or make an empty one if none is found.
 try:
 	library=xml.parse('templates.xml')
-except FileNotFoundError:
+except IOError: #!!filenameerror in python3
 	upDate()
 	f=open('templates.xml','w')
 	f.write(
@@ -355,11 +356,11 @@ edtBtn.grid(column=3, row=4, sticky=(E,W))
 savBtn=Button(mainFrame, text='Save', command=saveBtn)
 savBtn.grid(column=3, row=5, sticky=(E,W))
 
-#-test
-tstBtn=Button(mainFrame, text='Test', command=None)
+#-test #!!still needs to be implemented
+tstBtn=Button(mainFrame, text='Test', command=None, state='disabled')
 tstBtn.grid(column=3, row=6, sticky=(E,W))
 
-#-help
+#-help #!!still needs to be implemented
 hlpBtn=Button(mainFrame, text='Help', command=None)
 hlpBtn.grid(column=3, row=7, sticky=(E,W))
 
@@ -409,11 +410,6 @@ commentBox=Text(mainFrame, height=4, width=10)
 commentBox.grid(column=4, row=5, columnspan=5, rowspan=3, sticky=(W,E))
 
 # EVENT BINDINGS
-#!!set the command to a lambdaevent so i don't have to have *args?
-#!!does it really save that much?
-#!!as per https://www.inkling.com/read/programming-python-mark-lutz-4th/chapter-9/listboxes-and-scrollbars  
-#!!find listbox.bind('<Double-1>', (lambda event: onDoubleClick()))
-
 # select a template in templateListBox, update fields
 templateListBox.bind('<<ListboxSelect>>', updateFields)
 # double click a template in templateListBox, enter edit
@@ -425,6 +421,6 @@ offsetYBox.bind('<Tab>', tabFocus)
 sizeWBox.bind('<Tab>', tabFocus)
 sizeHBox.bind('<Tab>', tabFocus)
 commentBox.bind('<Tab>', tabFocus)
-#!!press enter to finish edit
+#!!press enter to apply edit
 lockFields()
 app.mainloop()

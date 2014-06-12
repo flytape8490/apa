@@ -1,5 +1,5 @@
 # Python 3.x/2.7
-# v 0.9
+# v 0.9.1
 # APAssist  -- apa.py
 
 # A tool written to aid in the generation of APA files for the
@@ -81,7 +81,7 @@ def templateListBoxRefresh():
 	for i in apa.nameList:
 		if apa.templates[i].flag!='deleted':
 			templateListBox.insert('end', i)
-	templateListBox.selection_set(0)
+	#.templateListBox.selection_set(0)
 	#!!have this scroll to the newly edited/entered item?
 def unlockFields():
 	templateNameBox['state']='normal'
@@ -141,7 +141,7 @@ def normalMode():
 	lockFields()
 
 # BUTTON ACTIONS
-def apply():
+def apply(*args):
 	# get fields
 	cName=templateNameBox.get('1.0','1.end')
 	#break if name is a duplicate
@@ -198,8 +198,8 @@ def dupeEntry():
 	templateNameBox.insert('end', ' COPY')
 	apa.nameList.insert(cIndex,cName)
 	templateListBox.insert(cIndex,cName)
-	templateListBox.selection_clear(cIndex-1)
-	templateListBox.selection_set(cIndex)
+	#.templateListBox.selection_clear(cIndex-1)
+	#.templateListBox.selection_set(cIndex)
 	updateFields()
 def edit(*args):
 	editMode('edit')
@@ -378,13 +378,13 @@ offsetLblFrm.grid(column=4, row=1, columnspan=2, rowspan=3)
 #-offsetXBox: template offset x-value field
 offsetXLbl=Label(offsetLblFrm, text='x')
 offsetXLbl.grid(column=5, row=1)
-offsetXBox=Text(offsetLblFrm, height=1, width=10)
+offsetXBox=Text(offsetLblFrm, height=1, width=10, wrap='none')
 offsetXBox.grid(column=4, row=1, sticky=(E,W))
 
 #-offsetYBox: template offset y-value field
 offsetYLbl=Label(offsetLblFrm, text='y')
 offsetYLbl.grid(column=5, row=2)
-offsetYBox=Text(offsetLblFrm, height=1, width=10)
+offsetYBox=Text(offsetLblFrm, height=1, width=10, wrap='none')
 offsetYBox.grid(column=4, row=2, sticky=(E,W))
 
 #-sizeLblFrm: labelframe for template size
@@ -394,13 +394,13 @@ sizeLblFrm.grid(column=6, row=1, columnspan=2, rowspan=3)
 #-sizeWBox: template size width field
 sizeWLbl=Label(sizeLblFrm, text='width')
 sizeWLbl.grid(column=8, row=1)
-sizeWBox=Text(sizeLblFrm, height=1, width=10)
+sizeWBox=Text(sizeLblFrm, height=1, width=10, wrap='none')
 sizeWBox.grid(column=7, row=1, sticky=(E,W))
 
 #-sizeHBox: template size height field
 sizeHLbl=Label(sizeLblFrm, text='height')
 sizeHLbl.grid(column=8, row=2)
-sizeHBox=Text(sizeLblFrm, height=1, width=10)
+sizeHBox=Text(sizeLblFrm, height=1, width=10, wrap='none')
 sizeHBox.grid(column=7, row=2, sticky=(E,W))
 
 #-commentBox: template comment field
@@ -412,8 +412,10 @@ commentBox.grid(column=4, row=5, columnspan=5, rowspan=3, sticky=(W,E))
 # EVENT BINDINGS
 # select a template in templateListBox, update fields
 templateListBox.bind('<<ListboxSelect>>', updateFields)
+
 # double click a template in templateListBox, enter edit
 templateListBox.bind('<Double-1>', edit)
+
 # press tab to switch focus
 templateNameBox.bind('<Tab>', tabFocus)
 offsetXBox.bind('<Tab>', tabFocus)
@@ -421,6 +423,14 @@ offsetYBox.bind('<Tab>', tabFocus)
 sizeWBox.bind('<Tab>', tabFocus)
 sizeHBox.bind('<Tab>', tabFocus)
 commentBox.bind('<Tab>', tabFocus)
-#!!press enter to apply edit
+
+# press enter to apply edit
+templateNameBox.bind('<Return>', apply)
+offsetXBox.bind('<Return>', apply)
+offsetYBox.bind('<Return>', apply)
+sizeWBox.bind('<Return>', apply)
+sizeHBox.bind('<Return>', apply)
+commentBox.bind('<Return>', apply)
+
 lockFields()
 app.mainloop()

@@ -1,9 +1,21 @@
-<file lMod="06/09/2014" revision="3">
+<file lMod="06/12/2014" revision="6">
 	<template name="New">
 		<offset x="0.0" y="0.0" />
 		<size width="0.0" height="0.0" />
 	</template>
 	<template name="New COPY">
+		<offset x="0.0" y="0.0" />
+		<size width="0.0" height="0.0" />
+	</template>
+	<template name="Newdd">
+		<offset x="0.0" y="0.0" />
+		<size width="0.0" height="0.0" />
+	</template>
+	<template name="News">
+		<offset x="0.0" y="0.0" />
+		<size width="0.0" height="0.0" />
+	</template>
+	<template name="cat">
 		<offset x="0.0" y="0.0" />
 		<size width="0.0" height="0.0" />
 	</template>

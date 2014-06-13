@@ -1,5 +1,5 @@
 # Python 3.x/2.7
-# v 0.9.1
+# v 0.9.2
 # APAssist  -- apa.py
 
 # A tool written to aid in the generation of APA files for the
@@ -70,19 +70,18 @@ def lockFields():
 	sizeWBox['state']='disabled'
 	sizeHBox['state']='disabled'
 	commentBox['state']='disabled'
+def stateChange():
+	apa.editState='changed'
+	savBtn['state']='normal'
 def tabFocus(event):
 	event.widget.tk_focusNext().focus()
 	return 'break'
 def templateListBoxRefresh():
-	#!!can i have this sort as if all uppercase entries, but still have them display in entered case? otherwise, entries starting with lowercase letters end up at the bottom of the list.
-	# can't have the namelist reset here, because it would then pull in deletions. Namelist must ONLY be set to the apa.template at the start
-	apa.nameList.sort()
 	templateListBox.delete(0,'end')
-	for i in apa.nameList:
+	for i in sorted(apa.nameList, key=lambda s: s.lower()): #!might not work correctly in python3
 		if apa.templates[i].flag!='deleted':
 			templateListBox.insert('end', i)
 	#.templateListBox.selection_set(0)
-	#!!have this scroll to the newly edited/entered item?
 def unlockFields():
 	templateNameBox['state']='normal'
 	offsetXBox['state']='normal'
@@ -113,11 +112,12 @@ def editMode(mode):
 	# set button states
 	templateListBox['state']='disabled'
 	newBtn['text']='Cancel Entry'
-	newBtn['command']=cancelEdit
+	newBtn['command']=cancel
 	delBtn['state']='disabled'
 	dupBtn['state']='disabled'
 	edtBtn['state']='disabled'
 	savBtn['text']='Apply Change'
+	savBtn['state']='normal'
 	savBtn['command']=apply
 	tstBtn['state']='disabled'
 	# set interactionMode to mode
@@ -133,7 +133,7 @@ def normalMode():
 	dupBtn['state']='normal'
 	edtBtn['state']='normal'
 	savBtn['text']='Save'
-	savBtn['command']=saveBtn
+	savBtn['command']=save
 	tstBtn['state']='normal'
 	# set interactionMode
 	apa.interactionMode='normal'
@@ -170,7 +170,8 @@ def apply(*args):
 	normalMode()
 	templateListBoxRefresh()
 	updateFields()
-def cancelEdit():
+	stateChange()
+def cancel():
 	normalMode()
 	updateFields()
 def deleteEntry():
@@ -189,6 +190,7 @@ def deleteEntry():
 		#!!have the box scroll back to 0, don't select anything.
 		# remove the entry from the apa.templates
 		del(apa.templates[cName])
+		stateChange()
 def dupeEntry():
 	#!!repeated clicks won't copy copies, have to click off and then reselect the copy, maybe also set the active?
 	cIndex=int(templateListBox.curselection()[0])+1
@@ -201,8 +203,14 @@ def dupeEntry():
 	#.templateListBox.selection_clear(cIndex-1)
 	#.templateListBox.selection_set(cIndex)
 	updateFields()
+	stateChange()
 def edit(*args):
 	editMode('edit')
+def esc(*args):
+	if apa.interactionMode!='normal':
+		cancel()
+	else:
+		return 'break'
 def newEntry():
 	# set interaction flag to new
 	apa.interactionMode='new'
@@ -223,9 +231,9 @@ def saveActn():
 	xmlFile=open('templates.xml','w')
 	apaString=('GEOM= "%s_[$].p[$].pdf" -%s -%s %s %s 1 1 0\n')
 	xmlString=(
-		'\t<template name="%s"%s>\n'+
-		'\t\t<offset x="%s" y="%s" />\n'+
-		'\t\t<size width="%s" height="%s" />\n'+
+		'\t<template name="%s"%s>\n'
+		'\t\t<offset x="%s" y="%s" />\n'
+		'\t\t<size width="%s" height="%s" />\n'
 		'\t</template>\n'
 		)
 	xmlFile.write(
@@ -258,7 +266,9 @@ def saveActn():
 	#!!progress bar is gooooooo
 	messagebox.showinfo(message='Files saved.')
 	#!!clear the flags from the apa, rebuild library from text file
-def saveBtn():
+	apa.editState='saved'
+	savBtn['state']='disabled'
+def save():
 	state=messagebox.askyesnocancel(message='Do you want to create a new version?', icon='question', title='CAUTION!')
 	if state: # dupe
 		dupeFile()
@@ -271,15 +281,20 @@ def saveBtn():
 			saveActn()
 # DATA READ-IN
 # open the library, or make an empty one if none is found.
+#!!should I have it just check if it exists instead of trying? It'd remove an 
+	#!!IOError and allow for 2/3 compatibility w/o too much trouble
 try:
 	library=xml.parse('templates.xml')
 except IOError: #!!filenameerror in python3
 	upDate()
 	f=open('templates.xml','w')
+	f.write('<file lMod="%s" revision="0">\n'%apa.lMod)
 	f.write(
-		'<file lMod="%s" revision="0">\n\t<template name="New">\n\t\t<offset x="0" y="0" />\n\t\t<size width="0" height="0" />\n\t</template>\n</file>'
-		%apa.lMod
-		)
+		'\t<template name="New">\n'
+		'\t\t<offset x="0" y="0" />\n'
+		'\t\t<size width="0" height="0" />\n'
+		'\t</template>\n'+
+		'</file>')
 	f.close()
 	library=xml.parse('templates.xml')
 root=library.getroot()
@@ -299,36 +314,37 @@ for child in root:
 # set list of template names
 apa.nameList=list(apa.templates)
 
-# set apa.interactionMode to run
-apa.interactionMode='run'
+# set apa.interactionMode to normal
+# set apa.editState to new
+apa.interactionMode='normal'
+apa.editState='new'
 
 # INITIALISE INTERFACE
 # set the main application window
 app=Tk()
 app.title('APAssist')
-#!!would a paned window be a better option?
-mainFrame=Frame(app, padding=(7,7,7,7)).grid(column=0, row=0, sticky=(N,W,E,S))
+
 # set grid weights for stretchy magic
 #.app.grid_columnconfigure(0, weight=1)
 #.app.grid_rowconfigure(1, weight=1)
 
 # set revision label
-revisionLbl=Label(mainFrame, text='Revision: %s'%apa.revision)
+revisionLbl=Label(app, text='Revision: %s'%apa.revision)
 revisionLbl.grid(column=0, row=0, sticky=(N,W,S))
 
 # set lMod label
-lModLbl=Label(mainFrame, text='Last Modified: %s'%apa.lMod)
+lModLbl=Label(app, text='Last Modified: %s'%apa.lMod)
 lModLbl.grid(column=1, row=0, sticky=(N,E,S))
 
 # set templateListBox
-templateListBox=Listbox(mainFrame, selectmode='single')
+templateListBox=Listbox(app, selectmode='single')
 templateListBox.grid(column=0, row=1, columnspan=2, rowspan=7, sticky=(N,E,W,S))
 
 # populate templateListBox
 templateListBoxRefresh()
 
 # set templateListBoxScroll
-templateListBoxScroll=Scrollbar(mainFrame, orient='vertical', command=templateListBox.yview)
+templateListBoxScroll=Scrollbar(app, orient='vertical', command=templateListBox.yview)
 templateListBoxScroll.grid(column=2, row=1, rowspan=7, sticky=(N,S))
 
 # configure the scrollbar
@@ -336,43 +352,43 @@ templateListBox['yscrollcommand'] = templateListBoxScroll.set
 
 # buttons
 #-new entry
-newBtn=Button(mainFrame, text='New Entry', command=newEntry)
+newBtn=Button(app, text='New Entry', command=newEntry)
 newBtn.grid(column=3, row=1, sticky=(E,W))
 
 #-delete entry
-delBtn=Button(mainFrame, text='Delete Entry', command=deleteEntry)
+delBtn=Button(app, text='Delete Entry', command=deleteEntry)
 delBtn.grid(column=3, row=2, sticky=(E,W))
 
 #-duplicate entry
-dupBtn=Button(mainFrame, text='Duplicate Entry', command=dupeEntry)
+dupBtn=Button(app, text='Duplicate Entry', command=dupeEntry)
 dupBtn.grid(column=3, row=3, sticky=(E,W))
 
 #-edit entry
-edtBtn=Button(mainFrame, text='Edit Entry', command=edit)
+edtBtn=Button(app, text='Edit Entry', command=edit)
 edtBtn.grid(column=3, row=4, sticky=(E,W))
 
 #-save apa and xml
-#!!activate only after an edit. Don't need to worry about new items or duplicates, those are meant to be edited anyway
-savBtn=Button(mainFrame, text='Save', command=saveBtn)
+# is unlocked on load in case of needing to generate an APA from a recovered XML w/o changes
+savBtn=Button(app, text='Save', command=save)
 savBtn.grid(column=3, row=5, sticky=(E,W))
 
 #-test #!!still needs to be implemented
-tstBtn=Button(mainFrame, text='Test', command=None, state='disabled')
+tstBtn=Button(app, text='Test', command=None, state='disabled')
 tstBtn.grid(column=3, row=6, sticky=(E,W))
 
 #-help #!!still needs to be implemented
-hlpBtn=Button(mainFrame, text='Help', command=None)
+hlpBtn=Button(app, text='Help', command=None, state='disabled')
 hlpBtn.grid(column=3, row=7, sticky=(E,W))
 
 # info panel objects
 #-templateNameBox: template name field
-templateNameLbl=Label(mainFrame, text='Template Name:')
+templateNameLbl=Label(app, text='Template Name:')
 templateNameLbl.grid(column=3, row=0, sticky=E)
-templateNameBox=Text(mainFrame, height=1, width=10, wrap='none')
+templateNameBox=Text(app, height=1, width=10, wrap='none')
 templateNameBox.grid(column=4, row=0, columnspan=5, sticky=(E,W))
 
 #-offsetLblFrm: labelframe for template offsets
-offsetLblFrm=LabelFrame(mainFrame, text='Offset (in)')
+offsetLblFrm=LabelFrame(app, text='Offset (in)')
 offsetLblFrm.grid(column=4, row=1, columnspan=2, rowspan=3)
 
 #-offsetXBox: template offset x-value field
@@ -388,7 +404,7 @@ offsetYBox=Text(offsetLblFrm, height=1, width=10, wrap='none')
 offsetYBox.grid(column=4, row=2, sticky=(E,W))
 
 #-sizeLblFrm: labelframe for template size
-sizeLblFrm=LabelFrame(mainFrame, text='Size (in)')
+sizeLblFrm=LabelFrame(app, text='Size (in)')
 sizeLblFrm.grid(column=6, row=1, columnspan=2, rowspan=3)
 
 #-sizeWBox: template size width field
@@ -404,9 +420,9 @@ sizeHBox=Text(sizeLblFrm, height=1, width=10, wrap='none')
 sizeHBox.grid(column=7, row=2, sticky=(E,W))
 
 #-commentBox: template comment field
-commentLbl=Label(mainFrame, text='Comments:')
+commentLbl=Label(app, text='Comments:')
 commentLbl.grid(column=4, row=4, sticky=W)
-commentBox=Text(mainFrame, height=4, width=10)
+commentBox=Text(app, height=4, width=10)
 commentBox.grid(column=4, row=5, columnspan=5, rowspan=3, sticky=(W,E))
 
 # EVENT BINDINGS
@@ -431,6 +447,9 @@ offsetYBox.bind('<Return>', apply)
 sizeWBox.bind('<Return>', apply)
 sizeHBox.bind('<Return>', apply)
 commentBox.bind('<Return>', apply)
+
+# press escape when editing to cancel
+app.bind('<Escape>', esc)
 
 lockFields()
 app.mainloop()

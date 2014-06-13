@@ -1,3 +1,5 @@
+CHANGES SINCE COMMIT:
+
 TO DO: (order sort-of matters for coupled items)
 : IMPLEMENT HELP BUTTON
 
@@ -5,12 +7,19 @@ TO DO: (order sort-of matters for coupled items)
 
 : EDIT TAB BINDING TO SELECT THE WHOLE FIELD
 
-: PRESS ESCAPE IN EDIT MODE TO CANCEL EDIT
+: EDIT 'PRESS ENTER' AND 'PRESS TAB' BINDINGS TO WORK ON JUST THE FRAME, NOT FIELDS
+	- have them call functions called /key/Key
+	- check interactionMode and return break if not an appropriate mode
+	- not as elegant but it uses fewer lines total than having a binding for each box
 
 : ALL INSTANCES OF SELECTION CHANGES ARE REMOVED VIA '#.'
 	- USE AND DETERMINE WHEN AND HOW RESELECTS SHOULD BE APPLIED
-		decided instances include:
-		- item0 select after first populate
+		* decided instances include (always update fields and scroll to selected):
+			- item0 select after first populate
+:ERROR: EDIT OR NEW, MAKE A CHANGE TO NAME AND THEN APPLY
+	- ERROR OCCURS, no index to select or something like that
+	- MAY ALSO NEGLECT TO LOCK FIELDS IN SOME INSTANCES
+	- MAY OR MAY NOT HAVE SOMETHING TO DO WITH WHETHER OR NOT SOMETHING WAS SELECTED TO BEGINWITH
 
 : FIX DUPLICATION ISSUES
 
@@ -19,13 +28,12 @@ TO DO: (order sort-of matters for coupled items)
 : IN LISTBOX, PRESSING A LETTER SCROLL TO THE FIRST ENTRY STARTING WITH THAT LETTER?
 	- might require a build of a lookup dict on namelist update
 	
-: UPPERCASE SORT ORDER FOR TEMPLATENAMEBOX
-	sorted(/list/, key=str.lower)
-	
+: UPPERCASE SORT ORDER FOR TEMPLATENAMEBOXREFRESH WORK W/ PYTHON3
+	rumor has it that p3 doesn't like the lambda statement I use
+
 : RETOOL INTERFACE
 	- INCREASE CONTRAST ON LOCKED ITEMS
 	- LEARN STYLING
-	- MINIMIZE USE OF NON-LABEL FRAMES, EVERYTHING SHOULD JUST BE IN THE ROOT WINDOW
 	- CHANGE TEXT FIELDS TO ENTRY FIELDS
 	- REMOVE SOME OF THE DIALOGS ON SAVE
 	- PROGRESS BAR ON SAVE
@@ -37,24 +45,19 @@ TO DO: (order sort-of matters for coupled items)
 	- PERHAPS USE A PANED WINDOW
 	- ADD ITEM PATH FIELD
 
+: INSTEAD OF TRY/IoError FOR DETERMINING FILE PRESENCE WHY NOT JUST CHECK
+	- Yes, do this: allows 2/3 compatibility w/o much trouble
+
 : XML
 	- SPLIT COMMENT INTO OWN SUB-ITEM, VALUE AS NON-ATTRIBUTE BUT TAGGEDTEXT
 	- SPLIT PATH INTO OWN SUB-ITEM, VALUE AS NON-ATTRIBUTE BUT TAGGEDTEXT
+	- OR JUST REPLACE WITH PICKLE? INVESTIGATE
 
-: IMPLEMENT LAST-ACTION FLAG
-	- to check if has been saved since last edit, or if any edits have been made at all
-	- cancel edit needs to avoid setting an edit flag
-	- don't check flag's current state before setting
-: SAVE-BUTTON ENABLE/DISABLE
 : ON-EXIT SAVE
 
 MAYBE JUST RECODE THE WHOLE DAMNTHING - LEAVING BASIC READ-IN AND WRITE-OUT STRUCTURES
-SET THE EDIT, DELETE, DUPLICATE BUTTONS TO ONLY UNLOCK IF SOMETHING IS SELECTED
-	-RUN UPDATE FIELDS AFTER SELECTION?
 ENTER EDIT MODE AFTER YOU CLICK DUPLICATE?
 
-ADD A SECOND LEVEL OF TRY AROUND FileNameError try groups for NameError - python2 is name error.
-	maybe set the namelist removal as its own fn?
 
 FIND A BETTER WAY TO GET THE NAME OF THE SELECTION
 	current is on line 99 - seems clunky

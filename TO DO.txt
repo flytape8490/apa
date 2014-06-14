@@ -1,7 +1,14 @@
 CHANGES SINCE COMMIT:
+	started implementing help button.
 
 TO DO: (order sort-of matters for coupled items)
 : IMPLEMENT HELP BUTTON
+	- notebook widget
+	- style the text
+	- primary info is where to get the values from
+	- next is how to use the software
+		- its own series of crap about the command schemes?
+	- last what to do with the .apa after generation
 
 : IMPLEMENT TEST BUTTON
 
@@ -54,6 +61,8 @@ TO DO: (order sort-of matters for coupled items)
 	- OR JUST REPLACE WITH PICKLE? INVESTIGATE
 
 : ON-EXIT SAVE
+
+: RECHUNK AND COMMENT
 
 MAYBE JUST RECODE THE WHOLE DAMNTHING - LEAVING BASIC READ-IN AND WRITE-OUT STRUCTURES
 ENTER EDIT MODE AFTER YOU CLICK DUPLICATE?

@@ -211,6 +211,19 @@ def esc(*args):
 		cancel()
 	else:
 		return 'break'
+def help():
+	# make help window
+	#!!Perhaps this window would be better served as a notebook
+	hlpWin=Toplevel(app)
+	hlpWin.title('APAssist Help')
+	# make close button
+	hlpClsBtn=Button(hlpWin, text='Close', command=hlpWin.destroy)
+	hlpClsBtn.grid(column=1, row=1)
+	# help message
+	hlpTxt=Text(hlpWin)
+	hlpTxt.grid(column=0, row=0, columnspan=3)
+	hlpTxt.insert('1.0','This is the help message')
+	hlpTxt['state']='disabled'
 def newEntry():
 	# set interaction flag to new
 	apa.interactionMode='new'
@@ -377,7 +390,7 @@ tstBtn=Button(app, text='Test', command=None, state='disabled')
 tstBtn.grid(column=3, row=6, sticky=(E,W))
 
 #-help #!!still needs to be implemented
-hlpBtn=Button(app, text='Help', command=None, state='disabled')
+hlpBtn=Button(app, text='Help', command=help)
 hlpBtn.grid(column=3, row=7, sticky=(E,W))
 
 # info panel objects
